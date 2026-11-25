@@ -1,373 +1,608 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#080b18">
-  <title>CRYPTO MINER</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b18">
+<title>CRYPTO MINER</title>
 
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(ellipse at 50% 0%, #18265a 0%, transparent 55%),
-        #080b18;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      padding: 20px 15px 100px;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
 
-    .app {
-      max-width: 480px;
-      margin: auto;
-    }
+body{
+  background:radial-gradient(ellipse at top,#17275a,#080b18 60%);
+  color:white;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  padding:20px 15px 100px;
+}
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
+.app{max-width:480px;margin:auto}
 
-    .logo {
-      font-size: 21px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      color: #60eaff;
-      text-shadow: 0 0 15px #168cff;
-    }
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
 
-    .online {
-      color: #5cffb0;
-      font-size: 11px;
-      border: 1px solid #286b59;
-      padding: 7px 10px;
-      border-radius: 20px;
-      background: #102b2a;
-    }
+.logo{
+  font-size:21px;
+  font-weight:900;
+  color:#60eaff;
+  text-shadow:0 0 15px #168cff;
+}
 
-    .card {
-      background: linear-gradient(145deg, #151e3c, #0d142b);
-      border: 1px solid #293d72;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 8px 30px #0005;
-    }
+.online{
+  color:#5cffb0;
+  font-size:11px;
+  border:1px solid #286b59;
+  padding:7px 10px;
+  border-radius:20px;
+  background:#102b2a;
+}
 
-    .label {
-      color: #9eafd8;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-align: center;
-    }
+.card{
+  background:linear-gradient(145deg,#151e3c,#0d142b);
+  border:1px solid #293d72;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 8px 30px #0005;
+}
 
-    .balance {
-      color: #63eaff;
-      font-size: 42px;
-      font-weight: 900;
-      text-align: center;
-      margin: 12px 0;
-      text-shadow: 0 0 20px #168cff;
-    }
+.label{
+  color:#9eafd8;
+  font-size:12px;
+  letter-spacing:2px;
+  text-align:center;
+}
 
-    .income {
-      color: #70ffba;
-      text-align: center;
-      font-size: 13px;
-    }
+.balance{
+  color:#63eaff;
+  font-size:40px;
+  font-weight:900;
+  text-align:center;
+  margin:12px 0;
+  text-shadow:0 0 20px #168cff;
+}
 
-    .section-title {
-      font-size: 17px;
-      font-weight: bold;
-      margin-bottom: 17px;
-    }
+.income{
+  color:#70ffba;
+  text-align:center;
+  font-size:13px;
+}
 
-    .miner {
-      text-align: center;
-      padding: 10px 0;
-    }
+.section-title{
+  font-size:17px;
+  font-weight:bold;
+  margin-bottom:17px;
+}
 
-    .gpu-icon {
-      font-size: 75px;
-      filter: drop-shadow(0 0 15px #258cff);
-      margin: 10px 0 15px;
-    }
+.page{display:none}
+.page.active{display:block}
 
-    .gpu-count {
-      font-size: 25px;
-      color: #65eaff;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
+.miner{text-align:center;padding:10px 0}
 
-    .mine-button {
-      width: 100%;
-      border: none;
-      border-radius: 15px;
-      padding: 18px;
-      margin-top: 20px;
-      color: white;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      background: linear-gradient(90deg, #126bff, #8b35ff);
-      box-shadow: 0 0 25px #426bff66;
-      transition: transform .12s;
-    }
+.gpu-icon{
+  font-size:75px;
+  filter:drop-shadow(0 0 15px #258cff);
+  margin:10px 0 15px;
+}
 
-    .mine-button:active,
-    .buy-button:active {
-      transform: scale(.97);
-    }
+.gpu-count{
+  font-size:25px;
+  color:#65eaff;
+  font-weight:bold;
+  margin-bottom:8px;
+}
 
-    .shop-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: #111a35;
-      border: 1px solid #283b6b;
-      border-radius: 14px;
-      padding: 15px;
-    }
+.main-button{
+  width:100%;
+  border:none;
+  border-radius:15px;
+  padding:18px;
+  margin-top:20px;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  background:linear-gradient(90deg,#126bff,#8b35ff);
+  box-shadow:0 0 25px #426bff66;
+}
 
-    .shop-info strong {
-      display: block;
-      margin-bottom: 6px;
-    }
+.main-button:active,.buy-button:active{
+  transform:scale(.97);
+}
 
-    .shop-info span {
-      font-size: 12px;
-      color: #9eafd8;
-    }
+.stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:16px;
+}
 
-    .buy-button {
-      background: linear-gradient(90deg, #087dff, #743cff);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-weight: bold;
-      cursor: pointer;
-      white-space: nowrap;
-    }
+.stat{
+  background:#101831;
+  border-radius:13px;
+  padding:14px;
+  text-align:center;
+}
 
-    .stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 16px;
-    }
+.stat span{
+  display:block;
+  font-size:11px;
+  color:#9eafd8;
+  margin-bottom:8px;
+}
 
-    .stat {
-      background: #101831;
-      border-radius: 13px;
-      padding: 14px;
-      text-align: center;
-    }
+.stat strong{
+  color:#65eaff;
+  font-size:19px;
+}
 
-    .stat span {
-      display: block;
-      font-size: 11px;
-      color: #9eafd8;
-      margin-bottom: 8px;
-    }
+.shop-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:#111a35;
+  border:1px solid #283b6b;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:12px;
+}
 
-    .stat strong {
-      color: #65eaff;
-      font-size: 19px;
-    }
+.shop-info strong{display:block;margin-bottom:7px}
+.shop-info span{display:block;font-size:12px;color:#9eafd8;margin-top:4px}
 
-    .notice {
-      text-align: center;
-      color: #7788b2;
-      font-size: 11px;
-      margin-top: 20px;
-    }
+.buy-button{
+  background:linear-gradient(90deg,#087dff,#743cff);
+  color:white;
+  border:none;
+  border-radius:10px;
+  padding:12px;
+  font-weight:bold;
+  cursor:pointer;
+  white-space:nowrap;
+}
 
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: space-around;
-      background: #0c1228;
-      border-top: 1px solid #293d72;
-      padding: 16px 5px;
-      z-index: 10;
-    }
+.buy-button:disabled{
+  opacity:.4;
+  cursor:not-allowed;
+}
 
-    .nav-item { 
-    color: #8292bd;
-      font-size: 12px;
-      text-align: center;
-    }
+.profile-icon{
+  font-size:65px;
+  text-align:center;
+  margin:15px;
+}
 
-    .nav-item.active {
-      color: #60eaff;
-    }
+.profile-name{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  color:#65eaff;
+  margin-bottom:20px;
+}
 
-    @media (max-width: 360px) {
-      .balance { font-size: 35px; }
-      .logo { font-size: 18px; }
-    }
-  </style>
+.profile-row{
+  display:flex;
+  justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid #293d72;
+  font-size:13px;
+}
+
+.profile-row span{color:#9eafd8}
+.profile-row strong{color:#65eaff}
+
+.achievement{
+  background:#111a35;
+  border:1px solid #293d72;
+  padding:13px;
+  border-radius:12px;
+  margin-top:10px;
+  font-size:13px;
+}
+
+.achievement.locked{opacity:.4}
+
+.notice{
+  text-align:center;
+  color:#7788b2;
+  font-size:11px;
+  margin-top:20px;
+}
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:space-around;
+  background:#0c1228;
+  border-top:1px solid #293d72;
+  padding:13px 3px;
+  z-index:10;
+}
+
+.nav-item{
+  color:#8292bd;
+  font-size:11px;
+  text-align:center;
+  cursor:pointer;
+  flex:1;
+  padding:5px 0;
+}
+
+.nav-item .nav-icon{
+  display:block;
+  font-size:21px;
+  margin-bottom:5px;
+}
+
+.nav-item.active{color:#60eaff}
+
+@media(max-width:360px){ 
+  .balance{font-size:34px}
+  .logo{font-size:18px}
+  .buy-button{padding:10px}
+}
+</style>
 </head>
+
 <body>
-  <main class="app">
-    <header>
-      <div class="logo">⚡ CRYPTO MINER</div>
-      <div class="online">● ONLINE</div>
-    </header>
+<div class="app">
 
-    <section class="card">
-      <div class="label">ТВОЙ БАЛАНС</div>
-      <div class="balance"><span id="balance">500</span> CR</div>
-      <div class="income">+<span id="income">0</span> CR / сек</div>
-    </section>
+<header>
+  <div class="logo">⚡ CRYPTO MINER</div>
+  <div class="online">● ONLINE</div>
+</header>
 
-    <section class="card">
-      <div class="section-title">⛏️ МОЯ МАЙНИНГ-ФЕРМА</div>
-      <div class="miner">
-        <div class="gpu-icon">🖥️</div>
-        <div class="gpu-count">GPU × <span id="gpuCount">1</span></div>
-        <div class="income">Оборудование работает 24/7</div>
-        <button class="mine-button" id="mineButton">
-          ⚡ МАЙНИТЬ +1 CR
-        </button>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <span>ВИДЕОКАРТЫ</span>
-          <strong id="gpuStat">1</strong>
-        </div>
-        <div class="stat">
-          <span>ДОХОД В ЧАС</span>
-          <strong id="hourIncome">0</strong>
-        </div>
-      </div>
-    </section>
+<!-- ГЛАВНАЯ -->
+<section class="page active" id="home">
 
-    <section class="card">
-      <div class="section-title">🛒 МАГАЗИН ОБОРУДОВАНИЯ</div>
-      <div class="shop-item">
-        <div class="shop-info">
-          <strong>🖥️ GPU Basic</strong>
-          <span>+1 CR / сек</span>
-          <span>Цена: <b id="gpuPrice">100</b> CR</span>
-        </div>
-        <button class="buy-button" id="buyButton">
-          КУПИТЬ
-        </button>
-      </div>
-    </section>
+  <div class="card">
+    <div class="label">ТВОЙ БАЛАНС</div>
+    <div class="balance"><span id="balance">500</span> CR</div>
+    <div class="income">+<span id="income">0</span> CR / сек</div>
+  </div>
 
-    <div class="notice">
-      CR — внутриигровые монеты. Это игровой баланс, не реальные деньги.
+  <div class="card">
+    <div class="section-title">⛏️ МАЙНИНГ</div>
+    <div class="miner">
+      <div class="gpu-icon">🖥️</div>
+      <div class="gpu-count">GPU × <span id="homeGpu">1</span></div>
+      <div class="income">Твоя майнинг-ферма работает 24/7</div>
+      <button class="main-button" id="mineButton">
+        ⚡ МАЙНИТЬ +1 CR
+      </button>
     </div>
-  </main>
+  </div>
 
-  <nav class="bottom-nav">
-    <div class="nav-item active">⌂<br>Главная</div>
-    <div class="nav-item">▣<br>Ферма</div>
-    <div class="nav-item">▤<br>Магазин</div>
-    <div class="nav-item">♙<br>Профиль</div>
-  </nav>
+  <div class="card">
+    <div class="section-title">📊 БЫСТРАЯ СТАТИСТИКА</div>
+    <div class="stats">
+      <div class="stat">
+        <span>ВИДЕОКАРТЫ</span>
+        <strong id="homeGpuStat">1</strong>
+      </div>
+      <div class="stat">
+        <span>ДОХОД В ЧАС</span>
+        <strong id="homeHour">0</strong>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    const DEFAULT_STATE = {
-      balance: 500,
-      gpu: 1,
-      price: 100
+<!-- ФЕРМА -->
+<section class="page" id="farm">
+  <div class="card">
+    <div class="section-title">🖥️ МОЯ МАЙНИНГ-ФЕРМА</div>
+
+    <div class="miner">
+      <div class="gpu-icon">🏭</div>
+      <div class="gpu-count">GPU × <span id="farmGpu">1</span></div>
+      <div class="income">Общая мощность оборудования</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span>ДОХОД В СЕКУНДУ</span>
+        <strong id="farmIncome">0 CR</strong>
+      </div>
+      <div class="stat">
+        <span>ДОХОД В ЧАС</span>
+        <strong id="farmHour">0 CR</strong>
+      </div>
+      <div class="stat">
+        <span>КУПЛЕНО GPU</span>
+        <strong id="farmBought">0</strong>
+      </div>
+      <div class="stat">
+        <span>НАЖАТИЙ</span>
+        <strong id="farmClicks">0</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">⚙️ ОБОРУДОВАНИЕ</div>
+    <div class="shop-item">
+      <div class="shop-info">
+        <strong>🖥️ GPU Basic</strong>
+        <span>Установлено: <b id="farmGpuDetail">1</b></span>
+        <span>Доход: +1 CR/сек за GPU</span>
+      </div>
+      <div style="color:#65eaff;font-weight:bold">ACTIVE</div>
+    </div>
+  </div>
+</section>
+
+<!-- МАГАЗИН -->
+<section class="page" id="shop">
+  <div class="card">
+    <div class="section-title">🛒 МАГАЗИН</div>
+
+    <div class="label" style="margin-bottom:15px">
+      ДОСТУПНЫЕ УЛУЧШЕНИЯ
+    </div>
+
+    <div class="shop-item">
+      <div class="shop-info">
+        <strong>🖥️ GPU Basic</strong>
+        <span>+1 CR / сек</span>
+        <span>Цена: <b id="gpuPrice">100</b> CR</span>
+      </div>
+      <button class="buy-button" id="buyButton">КУПИТЬ</button>
+    </div>
+
+    <div class="shop-item">
+      <div class="shop-info">
+        <strong>🚀 GPU Pro</strong>
+        <span>Скоро появится</span>
+        <span>Новые мощности</span>
+      </div>
+      <button class="buy-button" disabled>СКОРО</button>
+    </div>
+
+    <div class="income" style="margin-top:15px">
+      Покупай GPU Basic, чтобы увеличивать пассивный доход!
+    </div>
+  </div>
+</section>
+
+<!-- ПРОФИЛЬ -->
+<section class="page" id="profile">
+  <div class="card">
+    <div class="section-title">👤 МОЙ ПРОФИЛЬ</div>
+
+    <div class="profile-icon">👨‍💻</div>
+    <div class="profile-name">MINER #0001</div>
+
+    <div class="profile-row">
+      <span>Баланс</span>
+      <strong id="profileBalance">500 CR</strong>
+    </div>
+
+    <div class="profile-row">
+      <span>Всего GPU</span>
+      <strong id="profileGpu">1</strong>
+    </div>
+
+    <div class="profile-row">
+      <span>Ручных майнингов</span>
+      <strong id="profileClicks">0</strong>
+    </div>
+
+    <div class="profile-row">
+      <span>Пассивный доход</span> 
+      <strong id="profileIncome">0 CR/сек</strong>
+    </div>
+
+    <div class="profile-row">
+      <span>Всего заработано вручную</span>
+      <strong id="profileManual">0 CR</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🏆 ДОСТИЖЕНИЯ</div>
+
+    <div class="achievement" id="achievement1">
+      🥉 Первый майнинг — сделай первое нажатие
+    </div>
+
+    <div class="achievement locked" id="achievement2">
+      🥈 Начинающий фермер — купи первую GPU
+    </div>
+
+    <div class="achievement locked" id="achievement3">
+      🥇 Крипто-магнат — накопи 1000 CR
+    </div>
+  </div>
+</section>
+
+<div class="notice">
+  CR — внутриигровые монеты, не реальные деньги.
+</div>
+
+</div>
+
+<nav class="bottom-nav">
+  <div class="nav-item active" data-page="home">
+    <span class="nav-icon">⌂</span>Главная
+  </div>
+  <div class="nav-item" data-page="farm">
+    <span class="nav-icon">▣</span>Ферма
+  </div>
+  <div class="nav-item" data-page="shop">
+    <span class="nav-icon">▤</span>Магазин
+  </div>
+  <div class="nav-item" data-page="profile">
+    <span class="nav-icon">♙</span>Профиль
+  </div>
+</nav>
+
+<script>
+const DEFAULT_STATE = {
+  balance: 500,
+  gpu: 1,
+  price: 100,
+  clicks: 0,
+  manualEarned: 0
+};
+
+function loadState(){
+  try{
+    const saved = JSON.parse(
+      localStorage.getItem("cryptoMinerSave")
+    );
+
+    if(!saved || typeof saved !== "object"){
+      return {...DEFAULT_STATE};
+    }
+
+    return {
+      balance: Number.isFinite(saved.balance) && saved.balance >= 0
+        ? saved.balance : 500,
+
+      gpu: Number.isSafeInteger(saved.gpu) && saved.gpu >= 1
+        ? saved.gpu : 1,
+
+      price: Number.isSafeInteger(saved.price) && saved.price >= 100
+        ? saved.price : 100,
+
+      clicks: Number.isSafeInteger(saved.clicks) && saved.clicks >= 0
+        ? saved.clicks : 0,
+
+      manualEarned: Number.isFinite(saved.manualEarned) && saved.manualEarned >= 0
+        ? saved.manualEarned : 0
     };
+  }catch(error){
+    return {...DEFAULT_STATE};
+  }
+}
 
-    function loadState() {
-      try {
-        const saved = JSON.parse(
-          localStorage.getItem("cryptoMinerSave")
-        );
+let state = loadState();
 
-        if (!saved || typeof saved !== "object") {
-          return { ...DEFAULT_STATE };
-        }
+function saveState(){
+  try{
+    localStorage.setItem(
+      "cryptoMinerSave",
+      JSON.stringify(state)
+    );
+  }catch(error){
+    console.error("Не удалось сохранить игру",error);
+  }
+}
 
-        return {
-          balance: Number.isFinite(saved.balance) && saved.balance >= 0
-            ? saved.balance : DEFAULT_STATE.balance,
-          gpu: Number.isSafeInteger(saved.gpu) && saved.gpu >= 1
-            ? saved.gpu : DEFAULT_STATE.gpu,
-          price: Number.isSafeInteger(saved.price) && saved.price >= 100
-            ? saved.price : DEFAULT_STATE.price
-        };
-      } catch (error) {
-        return { ...DEFAULT_STATE };
-      }
-    }
+function format(number){
+  return Math.floor(number).toLocaleString("ru-RU");
+}
 
-    let state = loadState();
+function render(){
+  const income = state.gpu - 1;
+  const hour = income * 3600;
+  const balance = format(state.balance);
 
-    function saveState() {
-      localStorage.setItem("cryptoMinerSave", JSON.stringify(state));
-    }
+  document.getElementById("balance").textContent = balance;
+  document.getElementById("income").textContent = income;
 
-    function render() {
-      const income = state.gpu - 1;
+  document.getElementById("homeGpu").textContent = state.gpu;
+  document.getElementById("homeGpuStat").textContent = state.gpu;
+  document.getElementById("homeHour").textContent = format(hour);
 
-      document.getElementById("balance").textContent =
-        Math.floor(state.balance).toLocaleString("ru-RU");
+  document.getElementById("farmGpu").textContent = state.gpu;
+  document.getElementById("farmGpuDetail").textContent = state.gpu;
+  document.getElementById("farmIncome").textContent = income + " CR";
+  document.getElementById("farmHour").textContent = format(hour) + " CR";
+  document.getElementById("farmBought").textContent = state.gpu - 1;
+  document.getElementById("farmClicks").textContent = format(state.clicks);
 
-      document.getElementById("gpuCount").textContent = state.gpu;
-      document.getElementById("gpuStat").textContent = state.gpu;
-      document.getElementById("income").textContent = income;
-      document.getElementById("hourIncome").textContent =
-        (income * 3600).toLocaleString("ru-RU");
+  document.getElementById("gpuPrice").textContent = format(state.price);
 
-      document.getElementById("gpuPrice").textContent =
-        state.price.toLocaleString("ru-RU");
+  document.getElementById("buyButton").disabled =
+    state.balance < state.price;
 
-      document.getElementById("buyButton").disabled =
-        state.balance < state.price;
+  document.getElementById("profileBalance").textContent =
+    balance + " CR";
 
-      document.getElementById("buyButton").style.opacity =
-        state.balance < state.price ? "0.45" : "1";
-    }
+  document.getElementById("profileGpu").textContent = state.gpu;
+  document.getElementById("profileClicks").textContent = format(state.clicks);
+  document.getElementById("profileIncome").textContent = income + " CR/сек";
+  document.getElementById("profileManual").textContent =
+    format(state.manualEarned) + " CR";
 
-    document.getElementById("mineButton").addEventListener("click", () => {
-      state.balance += 1;
-      saveState();
-      render();
-    }); 
-    document.getElementById("buyButton").addEventListener("click", () => {
-      if (state.balance < state.price) return;
-      if (state.gpu >= Number.MAX_SAFE_INTEGER) return;
-      if (state.price > Number.MAX_SAFE_INTEGER / 1.5) return;
+  document.getElementById("achievement1").classList.toggle(
+    "locked", state.clicks < 1
+  );
 
-      state.balance -= state.price;
-      state.gpu += 1;
-      state.price = Math.ceil(state.price * 1.5);
+  document.getElementById("achievement2").classList.toggle(
+    "locked", state.gpu < 2
+  );
 
-      saveState();
-      render();
+  document.getElementById("achievement3").classList.toggle( 
+    "locked", state.balance < 1000
+  );
+}
+
+// Переключение страниц
+document.querySelectorAll(".nav-item").forEach(button => {
+  button.addEventListener("click", () => {
+    const page = button.dataset.page;
+
+    document.querySelectorAll(".page").forEach(section => {
+      section.classList.remove("active");
     });
 
-    setInterval(() => {
-      const income = state.gpu - 1;
+    document.querySelectorAll(".nav-item").forEach(item => {
+      item.classList.remove("active");
+    });
 
-      if (income > 0) {
-        state.balance += income;
-        saveState();
-        render();
-      }
-    }, 1000);
+    document.getElementById(page).classList.add("active");
+    button.classList.add("active");
+  });
+});
 
+// Ручной майнинг
+document.getElementById("mineButton").addEventListener("click", () => {
+  state.balance += 1;
+  state.clicks += 1;
+  state.manualEarned += 1;
+
+  saveState();
+  render();
+});
+
+// Покупка GPU
+document.getElementById("buyButton").addEventListener("click", () => {
+  if(state.balance < state.price) return;
+  if(state.gpu >= Number.MAX_SAFE_INTEGER) return;
+  if(state.price > Number.MAX_SAFE_INTEGER / 1.5) return;
+
+  state.balance -= state.price;
+  state.gpu += 1;
+  state.price = Math.ceil(state.price * 1.5);
+
+  saveState();
+  render();
+});
+
+// Пассивный доход
+setInterval(() => {
+  const income = state.gpu - 1;
+
+  if(income > 0){
+    state.balance += income;
+    saveState();
     render();
-  </script>
+  }
+},1000);
+
+render();
+</script>
 </body>
 </html>
