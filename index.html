@@ -1,239 +1,373 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRYPTO MINER</title>
-<style>
-* { box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b18">
+  <title>CRYPTO MINER</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-body {
-  margin: 0;
-  background: #080e1b;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  min-height: 100vh;
-  padding: 22px 15px;
-}
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, #18265a 0%, transparent 55%),
+        #080b18;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px 15px 100px;
+    }
 
-.container {
-  max-width: 440px;
-  margin: auto;
-}
+    .app {
+      max-width: 480px;
+      margin: auto;
+    }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 25px;
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
 
-.logo {
-  font-size: 23px;
-  font-weight: 900;
-  color: #61d9ff;
-  letter-spacing: 1px;
-}
+    .logo {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #60eaff;
+      text-shadow: 0 0 15px #168cff;
+    }
 
-.online {
-  color: #53e6a2;
-  font-size: 12px;
-}
+    .online {
+      color: #5cffb0;
+      font-size: 11px;
+      border: 1px solid #286b59;
+      padding: 7px 10px;
+      border-radius: 20px;
+      background: #102b2a;
+    }
 
-.balance {
-  background: linear-gradient(135deg,#172d4c,#101b30);
-  border: 1px solid #28466d;
-  border-radius: 18px;
-  padding: 24px;
-  text-align: center;
-}
+    .card {
+      background: linear-gradient(145deg, #151e3c, #0d142b);
+      border: 1px solid #293d72;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 30px #0005;
+    }
 
-.balance small { color: #9bb3d1; }
+    .label {
+      color: #9eafd8;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
 
-.amount {
-  color: #f6c95b;
-  font-size: 38px;
-  font-weight: bold;
-  margin-top: 10px;
-}
+    .balance {
+      color: #63eaff;
+      font-size: 42px;
+      font-weight: 900;
+      text-align: center;
+      margin: 12px 0;
+      text-shadow: 0 0 20px #168cff;
+    }
 
-.currency { color: #f6c95b; }
+    .income {
+      color: #70ffba;
+      text-align: center;
+      font-size: 13px;
+    }
 
-.miner {
-  margin: 22px 0;
-  background: radial-gradient(circle,#183d68,#101a2d 65%);
-  border: 1px solid #28466d;
-  border-radius: 20px;
-  padding: 35px 15px;
-  text-align: center;
-}
+    .section-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 17px;
+    }
 
-.rig {
-  font-size: 95px;
-  filter: drop-shadow(0 0 20px #36aaff);
-}
+    .miner {
+      text-align: center;
+      padding: 10px 0;
+    }
 
-.miner h2 { margin-bottom: 8px; }
+    .gpu-icon {
+      font-size: 75px;
+      filter: drop-shadow(0 0 15px #258cff);
+      margin: 10px 0 15px;
+    }
 
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 18px 0;
-}
+    .gpu-count {
+      font-size: 25px;
+      color: #65eaff;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
 
-.stat {
-  background: #14243b;
-  border-radius: 13px;
-  padding: 16px;
-  text-align: center;
-}
+    .mine-button {
+      width: 100%;
+      border: none;
+      border-radius: 15px;
+      padding: 18px;
+      margin-top: 20px;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      background: linear-gradient(90deg, #126bff, #8b35ff);
+      box-shadow: 0 0 25px #426bff66;
+      transition: transform .12s;
+    }
 
-.stat small { color: #9bb3d1; }
+    .mine-button:active,
+    .buy-button:active {
+      transform: scale(.97);
+    }
 
-.stat strong {
-  display: block;
-  font-size: 20px;
-  margin-top: 8px;
-  color: #62d7ff;
-}
+    .shop-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: #111a35;
+      border: 1px solid #283b6b;
+      border-radius: 14px;
+      padding: 15px;
+    }
 
-button {
-  width: 100%;
-  border: none;
-  border-radius: 13px;
-  padding: 17px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  color: white;
-  background: linear-gradient(90deg,#147de0,#27c9ec);
-}
+    .shop-info strong {
+      display: block;
+      margin-bottom: 6px;
+    }
 
-button:active { transform: scale(.97); }
+    .shop-info span {
+      font-size: 12px;
+      color: #9eafd8;
+    }
 
-.upgrade {
-  margin-top: 25px;
-  background: #14243b;
-  padding: 20px;
-  border-radius: 17px;
-}
+    .buy-button {
+      background: linear-gradient(90deg, #087dff, #743cff);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-weight: bold;
+      cursor: pointer;
+      white-space: nowrap;
+    }
 
-.upgrade p { color: #9bb3d1; }
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
 
-.buy {
-  background: linear-gradient(90deg,#7953df,#a16bff);
-}
+    .stat {
+      background: #101831;
+      border-radius: 13px;
+      padding: 14px;
+      text-align: center;
+    }
 
-footer {
-  text-align: center;
-  color: #60738f;
-  font-size: 12px;
-  margin-top: 25px;
-}
-</style>
+    .stat span {
+      display: block;
+      font-size: 11px;
+      color: #9eafd8;
+      margin-bottom: 8px;
+    }
+
+    .stat strong {
+      color: #65eaff;
+      font-size: 19px;
+    }
+
+    .notice {
+      text-align: center;
+      color: #7788b2;
+      font-size: 11px;
+      margin-top: 20px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      background: #0c1228;
+      border-top: 1px solid #293d72;
+      padding: 16px 5px;
+      z-index: 10;
+    }
+
+    .nav-item { 
+    color: #8292bd;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .nav-item.active {
+      color: #60eaff;
+    }
+
+    @media (max-width: 360px) {
+      .balance { font-size: 35px; }
+      .logo { font-size: 18px; }
+    }
+  </style>
 </head>
 <body>
+  <main class="app">
+    <header>
+      <div class="logo">⚡ CRYPTO MINER</div>
+      <div class="online">● ONLINE</div>
+    </header>
 
-<div class="container">
+    <section class="card">
+      <div class="label">ТВОЙ БАЛАНС</div>
+      <div class="balance"><span id="balance">500</span> CR</div>
+      <div class="income">+<span id="income">0</span> CR / сек</div>
+    </section>
 
-<header>
-  <div class="logo">⛏ CRYPTO MINER</div>
-  <div class="online">● ONLINE</div>
-</header>
+    <section class="card">
+      <div class="section-title">⛏️ МОЯ МАЙНИНГ-ФЕРМА</div>
+      <div class="miner">
+        <div class="gpu-icon">🖥️</div>
+        <div class="gpu-count">GPU × <span id="gpuCount">1</span></div>
+        <div class="income">Оборудование работает 24/7</div>
+        <button class="mine-button" id="mineButton">
+          ⚡ МАЙНИТЬ +1 CR
+        </button>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <span>ВИДЕОКАРТЫ</span>
+          <strong id="gpuStat">1</strong>
+        </div>
+        <div class="stat">
+          <span>ДОХОД В ЧАС</span>
+          <strong id="hourIncome">0</strong>
+        </div>
+      </div>
+    </section>
 
-<div class="balance">
-  <small>ТВОЙ БАЛАНС</small>
-  <div class="amount" id="balance">500.00</div>
-  <div class="currency">CR COINS</div>
-</div>
+    <section class="card">
+      <div class="section-title">🛒 МАГАЗИН ОБОРУДОВАНИЯ</div>
+      <div class="shop-item">
+        <div class="shop-info">
+          <strong>🖥️ GPU Basic</strong>
+          <span>+1 CR / сек</span>
+          <span>Цена: <b id="gpuPrice">100</b> CR</span>
+        </div>
+        <button class="buy-button" id="buyButton">
+          КУПИТЬ
+        </button>
+      </div>
+    </section>
 
-<div class="miner">
-  <div class="rig">🖥️</div>
-  <h2>МАЙНИНГ-ФЕРМА</h2>
-  <p style="color:#9bb3d1">Добывай игровые монеты!</p>
-  <button onclick="mine()">⛏ ДОБЫВАТЬ +1 CR</button>
-</div>
+    <div class="notice">
+      CR — внутриигровые монеты. Это игровой баланс, не реальные деньги.
+    </div>
+  </main>
 
-<div class="stats">
-  <div class="stat">
-    <small>МОЩНОСТЬ</small>
-    <strong id="power">1 GPU</strong>
-  </div>
-  <div class="stat">
-    <small>ДОХОД В СЕКУНДУ</small>
-    <strong id="income">0 CR</strong>
-  </div>
-</div>
+  <nav class="bottom-nav">
+    <div class="nav-item active">⌂<br>Главная</div>
+    <div class="nav-item">▣<br>Ферма</div>
+    <div class="nav-item">▤<br>Магазин</div>
+    <div class="nav-item">♙<br>Профиль</div>
+  </nav>
 
-<div class="upgrade">
-  <h3>🖥️ ВИДЕОКАРТЫ</h3>
-  <p>Купи оборудование и увеличь пассивный доход.</p>
-  <p>Доход: +1 CR/сек за видеокарту</p>
-  <button class="buy" onclick="buyGPU()">
-    КУПИТЬ GPU — <span id="price">100</span> CR
-  </button>
-</div>
+  <script>
+    const DEFAULT_STATE = {
+      balance: 500,
+      gpu: 1,
+      price: 100
+    };
 
-<footer>
-  CRYPTO MINER · GAME VERSION 1.0
-  <br>Все CR — игровые монеты
-</footer>
+    function loadState() {
+      try {
+        const saved = JSON.parse(
+          localStorage.getItem("cryptoMinerSave")
+        );
 
-</div>
+        if (!saved || typeof saved !== "object") {
+          return { ...DEFAULT_STATE };
+        }
 
-<script>
-let saved = JSON.parse(localStorage.getItem("cryptoMiner"));
+        return {
+          balance: Number.isFinite(saved.balance) && saved.balance >= 0
+            ? saved.balance : DEFAULT_STATE.balance,
+          gpu: Number.isSafeInteger(saved.gpu) && saved.gpu >= 1
+            ? saved.gpu : DEFAULT_STATE.gpu,
+          price: Number.isSafeInteger(saved.price) && saved.price >= 100
+            ? saved.price : DEFAULT_STATE.price
+        };
+      } catch (error) {
+        return { ...DEFAULT_STATE };
+      }
+    }
 
-let balance = saved ? saved.balance : 500;
-let gpu = saved ? saved.gpu : 1;
-let price = saved ? saved.price : 100;
+    let state = loadState();
 
-function save() {
-  localStorage.setItem("cryptoMiner",
-    JSON.stringify({balance, gpu, price}));
-}
+    function saveState() {
+      localStorage.setItem("cryptoMinerSave", JSON.stringify(state));
+    }
 
-function update() {
-  document.getElementById("balance").textContent =
-    balance.toFixed(2);
+    function render() {
+      const income = state.gpu - 1;
 
-  document.getElementById("power").textContent =
-    gpu + " GPU";
+      document.getElementById("balance").textContent =
+        Math.floor(state.balance).toLocaleString("ru-RU");
 
-  document.getElementById("income").textContent =
-    (gpu - 1) + " CR";
+      document.getElementById("gpuCount").textContent = state.gpu;
+      document.getElementById("gpuStat").textContent = state.gpu;
+      document.getElementById("income").textContent = income;
+      document.getElementById("hourIncome").textContent =
+        (income * 3600).toLocaleString("ru-RU");
 
-  document.getElementById("price").textContent = price;
-}
+      document.getElementById("gpuPrice").textContent =
+        state.price.toLocaleString("ru-RU");
 
-function mine() {
-  balance += 1;
-  update();
-  save();
-}
+      document.getElementById("buyButton").disabled =
+        state.balance < state.price;
 
-function buyGPU() {
-  if (balance < price) {
-    alert("Недостаточно монет!");
-    return;
-  }
+      document.getElementById("buyButton").style.opacity =
+        state.balance < state.price ? "0.45" : "1";
+    }
 
-  balance -= price;
-  gpu++;
-  price = Math.floor(price * 1.5);
+    document.getElementById("mineButton").addEventListener("click", () => {
+      state.balance += 1;
+      saveState();
+      render();
+    }); 
+    document.getElementById("buyButton").addEventListener("click", () => {
+      if (state.balance < state.price) return;
+      if (state.gpu >= Number.MAX_SAFE_INTEGER) return;
+      if (state.price > Number.MAX_SAFE_INTEGER / 1.5) return;
 
-  update();
-  save();
-} 
-  setInterval(() => {
-  balance += gpu - 1;
-  update();
-  save();
-}, 1000);
+      state.balance -= state.price;
+      state.gpu += 1;
+      state.price = Math.ceil(state.price * 1.5);
 
-update();
-</script>
+      saveState();
+      render();
+    });
 
+    setInterval(() => {
+      const income = state.gpu - 1;
+
+      if (income > 0) {
+        state.balance += income;
+        saveState();
+        render();
+      }
+    }, 1000);
+
+    render();
+  </script>
 </body>
 </html>
