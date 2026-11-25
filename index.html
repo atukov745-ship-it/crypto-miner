@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRYPTO MINER</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #080e1b;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  padding: 22px 15px;
+}
+
+.container {
+  max-width: 440px;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: 900;
+  color: #61d9ff;
+  letter-spacing: 1px;
+}
+
+.online {
+  color: #53e6a2;
+  font-size: 12px;
+}
+
+.balance {
+  background: linear-gradient(135deg,#172d4c,#101b30);
+  border: 1px solid #28466d;
+  border-radius: 18px;
+  padding: 24px;
+  text-align: center;
+}
+
+.balance small { color: #9bb3d1; }
+
+.amount {
+  color: #f6c95b;
+  font-size: 38px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.currency { color: #f6c95b; }
+
+.miner {
+  margin: 22px 0;
+  background: radial-gradient(circle,#183d68,#101a2d 65%);
+  border: 1px solid #28466d;
+  border-radius: 20px;
+  padding: 35px 15px;
+  text-align: center;
+}
+
+.rig {
+  font-size: 95px;
+  filter: drop-shadow(0 0 20px #36aaff);
+}
+
+.miner h2 { margin-bottom: 8px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.stat {
+  background: #14243b;
+  border-radius: 13px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat small { color: #9bb3d1; }
+
+.stat strong {
+  display: block;
+  font-size: 20px;
+  margin-top: 8px;
+  color: #62d7ff;
+}
+
+button {
+  width: 100%;
+  border: none;
+  border-radius: 13px;
+  padding: 17px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(90deg,#147de0,#27c9ec);
+}
+
+button:active { transform: scale(.97); }
+
+.upgrade {
+  margin-top: 25px;
+  background: #14243b;
+  padding: 20px;
+  border-radius: 17px;
+}
+
+.upgrade p { color: #9bb3d1; }
+
+.buy {
+  background: linear-gradient(90deg,#7953df,#a16bff);
+}
+
+footer {
+  text-align: center;
+  color: #60738f;
+  font-size: 12px;
+  margin-top: 25px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+  <div class="logo">⛏ CRYPTO MINER</div>
+  <div class="online">● ONLINE</div>
+</header>
+
+<div class="balance">
+  <small>ТВОЙ БАЛАНС</small>
+  <div class="amount" id="balance">500.00</div>
+  <div class="currency">CR COINS</div>
+</div>
+
+<div class="miner">
+  <div class="rig">🖥️</div>
+  <h2>МАЙНИНГ-ФЕРМА</h2>
+  <p style="color:#9bb3d1">Добывай игровые монеты!</p>
+  <button onclick="mine()">⛏ ДОБЫВАТЬ +1 CR</button>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <small>МОЩНОСТЬ</small>
+    <strong id="power">1 GPU</strong>
+  </div>
+  <div class="stat">
+    <small>ДОХОД В СЕКУНДУ</small>
+    <strong id="income">0 CR</strong>
+  </div>
+</div>
+
+<div class="upgrade">
+  <h3>🖥️ ВИДЕОКАРТЫ</h3>
+  <p>Купи оборудование и увеличь пассивный доход.</p>
+  <p>Доход: +1 CR/сек за видеокарту</p>
+  <button class="buy" onclick="buyGPU()">
+    КУПИТЬ GPU — <span id="price">100</span> CR
+  </button>
+</div>
+
+<footer>
+  CRYPTO MINER · GAME VERSION 1.0
+  <br>Все CR — игровые монеты
+</footer>
+
+</div>
+
+<script>
+let saved = JSON.parse(localStorage.getItem("cryptoMiner"));
+
+let balance = saved ? saved.balance : 500;
+let gpu = saved ? saved.gpu : 1;
+let price = saved ? saved.price : 100;
+
+function save() {
+  localStorage.setItem("cryptoMiner",
+    JSON.stringify({balance, gpu, price}));
+}
+
+function update() {
+  document.getElementById("balance").textContent =
+    balance.toFixed(2);
+
+  document.getElementById("power").textContent =
+    gpu + " GPU";
+
+  document.getElementById("income").textContent =
+    (gpu - 1) + " CR";
+
+  document.getElementById("price").textContent = price;
+}
+
+function mine() {
+  balance += 1;
+  update();
+  save();
+}
+
+function buyGPU() {
+  if (balance < price) {
+    alert("Недостаточно монет!");
+    return;
+  }
+
+  balance -= price;
+  gpu++;
+  price = Math.floor(price * 1.5);
+
+  update();
+  save();
+} 
+  setInterval(() => {
+  balance += gpu - 1;
+  update();
+  save();
+}, 1000);
+
+update();
+</script>
+
+</body>
+</html>
