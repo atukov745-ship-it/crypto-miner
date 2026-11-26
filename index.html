@@ -11,7 +11,13 @@
   if (window.tg) {
     window.tg.ready();
     window.tg.expand();
+window.tgUser = window.tg.initDataUnsafe?.user || null;
 
+if (window.tgUser) {
+  console.log("Player ID:", window.tgUser.id);
+  console.log("Player name:", window.tgUser.first_name);
+  console.log("Player username:", window.tgUser.username);
+}
     console.log("Telegram WebApp initialized");
   }
 </script>
