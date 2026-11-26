@@ -20,7 +20,30 @@ if (window.tgUser) {
 }
     console.log("Telegram WebApp initialized");
   }
-</script>
+document.addEventListener("DOMContentLoaded", function () {
+  const user = window.tgUser;
+
+  if (!user) return;
+
+  const nameElement = document.getElementById("tg-player-name");
+  const usernameElement = document.getElementById("tg-player-username");
+  const idElement = document.getElementById("tg-player-id");
+
+  if (nameElement) {
+    nameElement.textContent =
+      [user.first_name, user.last_name].filter(Boolean).join(" ") || "Игрок";
+  }
+
+  if (usernameElement) {
+    usernameElement.textContent = user.username
+      ? "@" + user.username
+      : "Telegram";
+  }
+
+  if (idElement) {
+    idElement.textContent = "ID: " + user.id;
+  }
+});ыы</script>
 <title>CRYPTO MINER</title>
 
 <style>
@@ -277,7 +300,35 @@ header{
   <div class="logo">⚡ CRYPTO MINER</div>
   <div class="online">● ONLINE</div>
 </header>
+<div id="tg-profile" style="
+  background: rgba(20, 35, 65, 0.85);
+  border: 1px solid #293d72;
+  border-radius: 14px;
+  padding: 14px;
+  margin: 15px 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+">
+  <div>
+    <div id="tg-player-name" style="
+      color: #60eaff;
+      font-size: 16px;
+      font-weight: bold;
+    ">Гость</div>
 
+    <div id="tg-player-username" style="
+      color: #8292bd;
+      font-size: 12px;
+      margin-top: 5px;
+    ">Telegram Player</div>
+  </div>
+
+  <div id="tg-player-id" style="
+    color: #8292bd;
+    font-size: 11px;
+  ">ID: —</div>
+</div>
 <!-- ГЛАВНАЯ -->
 <section class="page active" id="home">
 
