@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080b18">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+  window.tg = window.Telegram?.WebApp;
+
+  if (window.tg) {
+    window.tg.ready();
+    window.tg.expand();
+
+    console.log("Telegram WebApp initialized");
+  }
+</script>
 <title>CRYPTO MINER</title>
 
 <style>
